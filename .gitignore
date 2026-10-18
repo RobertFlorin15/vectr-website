@@ -1,0 +1,26 @@
+# Dependențe și build
+node_modules/
+dist/
+
+# Capturile generate de inspect.mjs (direction.json rămâne în repo)
+.taste-skill/inspect/
+
+# Setări locale ale editorului / Claude Code
+.claude/
+.vscode/
+.idea/
+
+# Variabile de mediu
+.env
+.env.*
+!.env.example
+
+# Loguri și cache
+*.log
+npm-debug.log*
+.vite/
+*.tsbuildinfo
+
+# Sistem
+.DS_Store
+Thumbs.db

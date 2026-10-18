@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+/* Tokens: roluri, nu hex-uri (SPEC §4.1). Hex-urile există doar aici. */
+:root {
+  color-scheme: dark;
+
+  --c-void: #000000;
+  --c-ground: #0a0a0a;
+  --c-surface: #141414;
+  --c-surface2: #262626;
+  --c-graphite: #404040;
+  --c-steel: #737373;
+  --c-muted: #a3a3a3;
+  --c-ink: #ffffff;
+
+  --margin: clamp(1rem, 2.2vw, 2rem);
+  --gutter: clamp(0.75rem, 1.4vw, 1.5rem);
+  --section: clamp(4.5rem, 2rem + 10vw, 12.5rem);
+  --radius: 0;
+  --tip: 0.5;
+
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-display: clamp(4rem, 6.4vw, 6.25rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --step-display: 11.5vw;
+  }
+}
+
+@theme inline {
+  --color-void: var(--c-void);
+  --color-ground: var(--c-ground);
+  --color-surface: var(--c-surface);
+  --color-surface2: var(--c-surface2);
+  --color-graphite: var(--c-graphite);
+  --color-steel: var(--c-steel);
+  --color-muted: var(--c-muted);
+  --color-ink: var(--c-ink);
+
+  --font-sans: "Albert Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace; /* taste-skill-ignore: mono doar pentru date matematice, SPEC §1.3 */
+
+  --text-small: var(--step-small);
+  --text-small--line-height: 1.45;
+  --text-body: var(--step-body);
+  --text-body--line-height: 1.55;
+  --text-lead: var(--step-lead);
+  --text-lead--line-height: 1.35;
+  --text-head: var(--step-head);
+  --text-head--line-height: 1.02;
+  --text-display: var(--step-display);
+  --text-display--line-height: 1;
+
+  --radius-*: initial;
+}
+
+@layer base {
+  html {
+    background: var(--c-void);
+    color: var(--c-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto;
+  }
+  body {
+    margin: 0;
+    background: var(--c-ground);
+    font-size: var(--step-body);
+    line-height: 1.55;
+    letter-spacing: 0.005em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, p { margin: 0; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+
+  /* Mono: numai pentru date matematice (SPEC §1.3). */
+  code, var, output, td.num {
+    font-family: var(--font-mono); /* taste-skill-ignore */
+    font-variant-numeric: tabular-nums;
+    font-size: var(--step-small);
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+  var { font-style: italic; }
+  /* Convenția vectorială: v italic cu săgeată deasupra (glifa combinată lipsește din fontul de date). */
+  var.vec { position: relative; display: inline-block; }
+  var.vec::after {
+    content: "";
+    position: absolute;
+    left: 0.12em;
+    right: -0.04em;
+    top: -0.08em;
+    height: 0.32em;
+    background: currentColor;
+    clip-path: polygon(0 45%, 78% 45%, 78% 20%, 100% 50%, 78% 80%, 78% 55%, 0 55%);
+  }
+
+  ::selection { background: var(--c-ink); color: var(--c-void); }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/* Link text: subliniere transparentă → currentColor */
+.link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.18s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .link:hover { text-decoration-color: currentColor; }
+}
+
+/* Buton vector-cut: corp + vârf separat (SPEC §4.3, §8) */
+.vbtn {
+  --h: 52px;
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  height: var(--h);
+  margin-right: calc(var(--h) * var(--tip));
+  border: 0;
+  background: var(--vbtn-bg);
+  color: var(--vbtn-fg);
+  font-size: var(--step-body);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.13s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.vbtn[data-size="sm"] { --h: 44px; font-size: var(--step-small); }
+.vbtn[data-tone="ink"] { --vbtn-bg: var(--c-ink); --vbtn-fg: var(--c-void); }
+.vbtn[data-tone="void"] { --vbtn-bg: var(--c-void); --vbtn-fg: var(--c-ink); }
+.vbtn:active { transform: scale(0.97); transition-duration: 0.14s; }
+.vbtn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.vbtn[data-tone="ink"]:focus-visible { outline-color: var(--c-ink); }
+.vbtn__body {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 clamp(1.25rem, 1.8vw, 1.75rem);
+  white-space: nowrap;
+}
+.vbtn__tip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: calc(var(--h) * var(--tip) * -1);
+  width: calc(var(--h) * var(--tip) + 8px);
+  background: var(--vbtn-bg);
+  clip-path: polygon(0 0, calc(100% - var(--h) * var(--tip)) 0, 100% 50%, calc(100% - var(--h) * var(--tip)) 100%, 0 100%);
+  transform: translateX(0);
+  transition: transform 0.18s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .vbtn:hover .vbtn__tip { transform: translateX(8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vbtn, .vbtn__tip { transition: none; }
+  .vbtn:active { transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.vbtn[data-size="lg"] { --h: 56px; }
+.vbtn--block { display: flex; width: calc(100% - var(--h) * var(--tip)); }
+.vbtn--block .vbtn__body { flex: 1; }
