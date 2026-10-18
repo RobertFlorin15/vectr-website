@@ -1,6 +1,12 @@
 # Dependențe și build
 node_modules/
 dist/
+.vite/
+*.tsbuildinfo
+
+# Unelte de design (skill-uri terțe) și fișierul lor de blocare
+.agents/
+skills-lock.json
 
 # Capturile generate de inspect.mjs (direction.json rămâne în repo)
 .taste-skill/inspect/
@@ -15,11 +21,9 @@ dist/
 .env.*
 !.env.example
 
-# Loguri și cache
+# Loguri
 *.log
 npm-debug.log*
-.vite/
-*.tsbuildinfo
 
 # Sistem
 .DS_Store
