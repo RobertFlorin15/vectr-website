@@ -7,7 +7,7 @@ import Wordmark from './Wordmark';
 
 const EASE_OUT: [number, number, number, number] = [...ease.out];
 
-/** Nav absolut în hero: se derulează odată cu pagina, nu acoperă niciodată conținut (SPEC §7.1). */
+/** Absolute nav inside the hero: it scrolls with the page and never covers content (SPEC §7.1). */
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();

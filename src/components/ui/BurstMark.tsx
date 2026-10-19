@@ -2,13 +2,13 @@ import { CHEVRON_ANGLE, LOGO_RAYS } from '../../lib/logo';
 
 interface Props {
   className?: string;
-  /** Marginea (în unități de L_max) din jurul semnului, în viewBox. */
+  /** Margin (in L_max units) around the mark, inside the viewBox. */
   pad?: number;
 }
 
 const rad = (d: number) => (d * Math.PI) / 180;
 
-/** Semnul VECTR: 22 de raze dintr-o origine, reconstruit parametric din LOGO_RAYS. Origine = (0, 0), y în sus. */
+/** The VECTR mark: 22 rays from one origin, rebuilt parametrically from LOGO_RAYS. Origin = (0, 0), y up. */
 export default function BurstMark({ className, pad = 0.08 }: Props) {
   const half = 1 + pad;
   return (
@@ -26,7 +26,7 @@ export default function BurstMark({ className, pad = 0.08 }: Props) {
         const a = rad(theta);
         const tx = L * Math.cos(a);
         const ty = -L * Math.sin(a);
-        // Brațele chevronului pleacă înapoi din vârf, la ±CHEVRON_ANGLE față de ax.
+        // The chevron arms run back from the tip, at ±CHEVRON_ANGLE from the axis.
         const back = (s: 1 | -1) => {
           const b = a + Math.PI + s * rad(CHEVRON_ANGLE);
           return `${tx + arm * Math.cos(b)},${ty - arm * Math.sin(b)}`;

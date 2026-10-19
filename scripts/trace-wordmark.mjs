@@ -20,7 +20,7 @@ potrace.trace(buf, { threshold: 128, turdSize: 2, alphaMax: 1.0, optTolerance: 0
   const d = [...svg.matchAll(/ d="([^"]+)"/g)].map((m) => m[1]).join(' ');
   const pad = 2, w = maxX - minX + 1 + pad * 2, h = maxY - minY + 1 + pad * 2;
   const out = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${minX - pad} ${minY - pad} ${w} ${h}" fill="currentColor" role="img" aria-label="VECTR"><path fill-rule="evenodd" d="${d}"/></svg>\n`;
-  fs.writeFileSync('public/brand/vectr-wordmark.svg', out);
-  fs.rmSync('public/brand/vectr-wordmark.raw.svg', { force: true });
+  fs.writeFileSync('src/brand/vectr-wordmark.svg', out);
+  fs.rmSync('src/brand/vectr-wordmark.raw.svg', { force: true });
   console.log(w, h, out.length);
 });

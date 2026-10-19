@@ -12,7 +12,7 @@ function mulberry32(seed: number) {
   };
 }
 
-/** Rețeaua de puncte de bază p₀, centrată în O, cu jitter determinist de ±0.06·s. Nu se desenează. */
+/** Lattice of base points p₀, centred on O, with deterministic jitter of ±0.06·s. It is never drawn. */
 export function createLattice({ nx, ny, nz, step }: TierConfig) {
   const base = new Float32Array(nx * ny * nz * 3);
   const rnd = mulberry32(112236397);

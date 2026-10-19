@@ -1,8 +1,8 @@
 /**
- * Razele semnului VECTR (logos/logo_grafic_nou.jpg, varianta finală): 22 de vectori dintr-o singură origine.
- * theta: grade de la +x, y în sus. L: lungimea normalizată la cea mai lungă rază.
- * w: grosimea liniei și arm: lungimea brațelor chevronului, ambele în unități de L_max.
- * Valorile sunt citite de pe imagine (±1–2°). Sursa unică pentru semnul SVG și pentru câmpul 3D.
+ * Rays of the VECTR mark (logos/logo_grafic_nou.jpg, the final version): 22 vectors from a single origin.
+ * theta: degrees from +x, y up. L: length normalised to the longest ray.
+ * w: line thickness and arm: chevron arm length, both in L_max units.
+ * Values are read off the image (±1–2°). Single source for the SVG mark and the 3D field.
  */
 export const LOGO_RAYS = [
   { theta: 18.2, L: 0.576, w: 0.013, arm: 0.058 },

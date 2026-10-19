@@ -6,7 +6,7 @@ import VectorButton from '../ui/VectorButton';
 const field =
   'block h-[54px] w-full rounded-none border-0 bg-muted px-4 text-body text-void placeholder:text-surface2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-void md:h-[52px]';
 
-/** Chevron decupat din marginea cuponului: vârf de 90°, în culoarea fundalului (SPEC §7.7). */
+/** Chevron cut out of the coupon edge: 90° tip, in the background colour (SPEC §7.7). */
 function Notch({ pos }: { pos: 'top' | 'bottom' }) {
   return (
     <span
@@ -16,11 +16,11 @@ function Notch({ pos }: { pos: 'top' | 'bottom' }) {
   );
 }
 
-/** Contact: formularul-cupon. Nu există backend, deci trimiterea deschide mailto: (SPEC §7.7). */
+/** Contact: the coupon form. There is no backend, so submitting opens mailto: (SPEC §7.7). */
 export default function Join() {
   const uid = useId();
 
-  // [DE CONECTAT] Formspree / Google Forms înainte de lansare. Nu se simulează succesul unui server.
+  // [TO CONNECT] Formspree / Google Forms before launch. A server success is never simulated.
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const d = new FormData(e.currentTarget);
@@ -50,7 +50,7 @@ export default function Join() {
               <p className="max-w-[34ch] text-body [text-wrap:pretty]">{join.text}</p>
             </div>
 
-            {/* Perforația: puncte între cele două crestături; pe telefon crestăturile sunt pe marginile laterale */}
+            {/* Perforation: dots between the two notches; on phones the notches sit on the side edges */}
             <div className="relative flex flex-col justify-center gap-2.5 border-t-[5px] border-dotted border-void p-6 pb-12 md:border-l-[5px] md:border-t-0 md:p-12 md:pl-10">
             <span aria-hidden className="absolute -left-px -top-[17px] h-7 w-3.5 bg-void [clip-path:polygon(0_0,100%_50%,0_100%)] md:hidden" />
             <span aria-hidden className="absolute -right-px -top-[17px] h-7 w-3.5 bg-void [clip-path:polygon(100%_0,0_50%,100%_100%)] md:hidden" />

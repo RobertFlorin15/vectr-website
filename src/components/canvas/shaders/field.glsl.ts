@@ -1,6 +1,6 @@
 import { FIELD_GLSL } from '../../../lib/field.constants';
 
-/** Câmpul F(p) în GLSL. Oglindit în lib/field.ts; constantele vin din field.constants.ts. */
+/** The field F(p) in GLSL. Mirrored in lib/field.ts; constants come from field.constants.ts. */
 export const fieldGLSL = /* glsl */ `
 ${FIELD_GLSL}
 
@@ -9,7 +9,7 @@ uniform float uIntro;
 uniform float uPtrAmp;
 uniform float uPolarity;
 uniform vec3 uPointer;
-uniform float uFieldScale; // telefon: câmpul se eșantionează pe un domeniu mai larg, ca emblema și curgerea să încapă
+uniform float uFieldScale; // phone: the field is sampled over a wider domain so the emblem and flow fit
 uniform float uSrcGain;
 uniform float uFlowGain;
 uniform float uPtrGain;

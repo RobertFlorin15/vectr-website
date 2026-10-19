@@ -24,7 +24,7 @@ function useIsDesktop() {
   );
 }
 
-/** Divizii: ruptura albă. Forma vector-cut mare se rotește spre direcția diviziei active (SPEC §7.4). */
+/** Divisions: the white break. The large vector-cut shape rotates toward the active division direction (SPEC §7.4). */
 export default function Divisions() {
   const reduce = useReducedMotion();
   const desktop = useIsDesktop();
@@ -36,7 +36,7 @@ export default function Divisions() {
   const shapeH = useElementHeight(shape);
 
   const select = (i: number) => {
-    // Drumul cel mai scurt între unghiuri.
+    // Shortest path between angles.
     const delta = ((((divisions.items[i].angle - angleRef.current) % 360) + 540) % 360) - 180;
     angleRef.current += delta;
     setAngle(angleRef.current);
@@ -64,7 +64,7 @@ export default function Divisions() {
       data-ink="dark"
       className="overflow-hidden bg-ink px-(--margin) py-12 text-void md:grid md:grid-cols-12 md:items-center md:gap-(--gutter) md:py-24"
     >
-      {/* Lista: primul rând e titlul, apoi cele 3 divizii, apoi faptul diviziei active */}
+      {/* List: the first row is the title, then the 3 divisions, then the active division fact */}
       <div className="relative z-10 min-w-0 md:col-span-5">
         <Reveal as="p" className="mb-2 hidden text-head font-semibold leading-[1.15] tracking-[-0.03em] text-graphite md:block">
           {divisions.title}
@@ -110,7 +110,7 @@ export default function Divisions() {
         </p>
       </div>
 
-      {/* Forma mare, plină, cu vârful rotit spre direcția diviziei; imaginea stă în fața ei, nerotită */}
+      {/* Large solid shape with its tip rotated toward the division direction; the image sits in front of it, unrotated */}
       <div className="relative order-first mx-auto mb-8 aspect-[4/3] w-full [--k:0.9] md:order-none md:aspect-[1.6/1] md:col-span-7 md:col-start-6 md:my-24 md:mb-24 md:w-full md:[--k:0.9]">
         <motion.div
           className="absolute inset-0 hidden md:block"
@@ -151,7 +151,7 @@ export default function Divisions() {
         </div>
       </div>
 
-      {/* Pe telefon, faptul vine sub rândul cu nume */}
+      {/* On phones, the fact comes below the list */}
       <p className="relative z-10 mt-4 max-w-[40ch] text-body [text-wrap:pretty] md:hidden">{current.fact}</p>
     </section>
   );

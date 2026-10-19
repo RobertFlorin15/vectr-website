@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState, type RefObject } from 'react';
 
-/** Înălțimea elementului în px (ResizeObserver), pentru vârful de 90° exact (SPEC §4.3). */
+/** Element height in px (ResizeObserver), for an exact 90° tip (SPEC §4.3). */
 export function useElementHeight(ref: RefObject<Element | null>) {
   const [h, setH] = useState(0);
   useLayoutEffect(() => {

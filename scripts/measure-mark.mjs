@@ -1,4 +1,4 @@
-// Măsoară razele din logos/logo_grafic_nou.jpg: unghi, lungime, grosime. Rezultatul alimentează src/lib/logo.ts.
+// Measures the rays in logos/logo_grafic_nou.jpg: angle, length, thickness. The result feeds src/lib/logo.ts.
 import { createRequire } from 'node:module';
 const require = createRequire(new URL('../node_modules/potrace/', import.meta.url));
 const Jimp = require('jimp');
@@ -9,7 +9,7 @@ const white = (x, y) => {
   if (x < 0 || y < 0 || x >= W || y >= H) return false;
   return d[(y * W + x) * 4] > 128;
 };
-// origine: centroid al pixelilor albi din jurul estimării
+// origin: centroid of the white pixels around the estimate
 let ox = 1299, oy = 877;
 for (let it = 0; it < 10; it++) {
   let sx = 0, sy = 0, n = 0;
@@ -22,14 +22,14 @@ const N = 3600;
 const reach = new Float64Array(N);
 for (let i = 0; i < N; i++) {
   const a = (i * STEP * Math.PI) / 180;
-  const c = Math.cos(a), s = -Math.sin(a); // y în sus
+  const c = Math.cos(a), s = -Math.sin(a); // y up
   let r = 0, miss = 0, last = 0;
   for (r = 30; r < 1300; r += 1) {
     if (white(ox + c * r, oy + s * r)) { last = r; miss = 0; } else if (++miss > 3) break;
   }
   reach[i] = last;
 }
-// maxime locale ale razei pe o fereastră de ±3°
+// local maxima of the reach over a ±3° window
 const w = 30, peaks = [];
 for (let i = 0; i < N; i++) {
   let isMax = reach[i] > 150;
@@ -38,7 +38,7 @@ for (let i = 0; i < N; i++) {
 }
 const out = peaks.map((i) => {
   const L = reach[i];
-  // direcția reală: media unghiulară a pixelilor albi la 0.5L (ax mai precis decât vârful)
+  // true direction: angular mean of the white pixels at 0.5L (a better axis than the tip)
   const rr = L * 0.5;
   let a0 = i;
   while (white(ox + Math.cos(((a0 - 1) * STEP * Math.PI) / 180) * rr, oy - Math.sin(((a0 - 1) * STEP * Math.PI) / 180) * rr) && i - a0 < 200) a0--;

@@ -1,6 +1,6 @@
 import { useEffect, useState, type RefObject } from 'react';
 
-/** true cât timp elementul intersectează viewport-ul (threshold 0). Fără IntersectionObserver rămâne true. */
+/** true while the element intersects the viewport (threshold 0). Stays true without IntersectionObserver. */
 export function useInViewport(ref: RefObject<Element | null>) {
   const [inView, setInView] = useState(true);
   useEffect(() => {

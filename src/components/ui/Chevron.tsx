@@ -1,4 +1,4 @@
-/** Bulina din liste: chevron deschis, linie 0.12em, capete rotunde, exact ca la „r” (SPEC §4.3). */
+/** List bullet: open chevron, 0.12em line, round caps, exactly like the "r" (SPEC §4.3). */
 export default function Chevron({ className }: { className?: string }) {
   return (
     <svg

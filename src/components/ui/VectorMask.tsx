@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode;
 }
 
-/** Wrapper cu masca vector-cut: vârful are mereu 90°, indiferent de proporții. */
+/** Wrapper with the vector-cut mask: the tip is always 90°, whatever the proportions. */
 export default function VectorMask({ dir = 'right', className, style, children }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const h = useElementHeight(ref);

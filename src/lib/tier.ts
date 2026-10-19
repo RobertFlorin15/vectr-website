@@ -14,7 +14,7 @@ export const TIERS: Record<Exclude<Tier, 'fallback'>, TierConfig> = {
   low: { nx: 14, ny: 22, nz: 3, step: 0.52, dpr: [1, 1.25] },
 };
 
-/** Telefon: rețea mult mai deasă, cu săgeți mici, ca câmpul să fie interactiv pe un ecran îngust. */
+/** Phone: a much denser lattice of small arrows, so the field stays interactive on a narrow screen. */
 export const PHONE: TierConfig = { nx: 20, ny: 18, nz: 2, step: 0.26, dpr: [1, 1.5] };
 
 export const TIER_ORDER = ['high', 'mid', 'low'] as const;

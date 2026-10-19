@@ -4,13 +4,13 @@ export const vectorVert = /* glsl */ `
 ${fieldGLSL}
 
 attribute vec3 aBase;
-attribute float aPart; // 0 = fus, 1 = vârf
+attribute float aPart; // 0 = shaft, 1 = head
 
 uniform float uScroll;
 uniform float uArrowScale;
 uniform float uMaskMode;
-uniform float uMaskTop;  // pe telefon: fracția din înălțime (de sus) de unde începe câmpul // 0 = zonă calmă pe x (desktop), 1 = mascare pe y (telefon)
-uniform vec2 uFog;       // adâncimea la care începe / se termină ceața
+uniform float uMaskTop;  // phone: fraction of the height (from the top) where the field begins // 0 = calm zone on x (desktop), 1 = mask on y (phone)
+uniform vec2 uFog;       // depth where the fog starts / ends
 
 varying float vB;
 varying vec3 vN;
@@ -21,7 +21,7 @@ void main() {
   float L = L_MIN + (L_MAX - L_MIN) * (1.0 - exp(-m / F0));
   vec3 d = F / max(m, 1e-4);
 
-  // Lungimea codifică magnitudinea; vârful rămâne proporțional când săgeata e foarte scurtă.
+  // Length encodes magnitude; the head stays proportional when the arrow is very short.
   float hl = min(HEAD_LEN, L);
   float hs = hl / HEAD_LEN;
   vec3 lp = position;
@@ -35,7 +35,7 @@ void main() {
 
   lp *= uArrowScale;
 
-  // Bază ortonormală cu up = d
+  // Orthonormal basis with up = d
   vec3 helper = abs(d.y) < 0.99 ? vec3(0.0, 1.0, 0.0) : vec3(1.0, 0.0, 0.0);
   vec3 t1 = normalize(cross(helper, d));
   vec3 t2 = cross(d, t1);
@@ -45,7 +45,7 @@ void main() {
   vec4 mv = modelViewMatrix * vec4(aBase + rp, 1.0);
   gl_Position = projectionMatrix * mv;
 
-  // Zonă calmă: luminozitatea e înmulțită cu o mască pe poziția ecranului a originii săgeții.
+  // Calm zone: brightness is multiplied by a mask on the screen position of the arrow origin.
   vec4 cp = projectionMatrix * modelViewMatrix * vec4(aBase, 1.0);
   vec2 s = cp.xy / cp.w * 0.5 + 0.5;
   float calm = uMaskMode < 0.5 ? smoothstep(0.40, 0.56, s.x) : smoothstep(uMaskTop, uMaskTop + 0.08, 1.0 - s.y);

@@ -1,6 +1,6 @@
 import { FIELD } from './field.constants';
 
-/** Starea pointerului în coordonate locale ale rețelei (origine = O). */
+/** Pointer state in lattice-local coordinates (origin = O). */
 export interface PointerSample {
   x: number;
   y: number;
@@ -15,8 +15,8 @@ function wrap(d: number) {
 }
 
 /**
- * Evaluarea lui F(p) pe CPU, formulă cu formulă identică cu field.glsl.ts.
- * Scrie rezultatul în `out` (zero alocări). uIntro = 1.
+ * Evaluation of F(p) on the CPU, formula for formula identical to field.glsl.ts.
+ * Writes the result into `out` (zero allocations). uIntro = 1.
  */
 export interface FieldGains {
   scale: number;
@@ -41,7 +41,7 @@ export function evaluateField(
   py *= gains.scale;
   pz *= gains.scale;
 
-  // (a) sursa-emblemă
+  // (a) the emblem source
   const rho = Math.hypot(px, py);
   const phi = rho > 1e-5 ? Math.atan2(py, px) : 0;
   const sig = Math.min(Math.max(F.rayHalfWidth / Math.max(rho, 0.01), F.sigmaTheta), F.sigmaThetaMax);
@@ -105,7 +105,7 @@ export function evaluateField(
   out[2] = fz;
 }
 
-/** θ în grade, în [0, 360), din componentele (x, y). */
+/** θ in degrees, in [0, 360), from the (x, y) components. */
 export function fieldAngleDeg(x: number, y: number) {
   const a = (Math.atan2(y, x) * 180) / Math.PI;
   return ((a % 360) + 360) % 360;

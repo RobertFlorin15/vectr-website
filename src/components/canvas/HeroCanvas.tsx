@@ -11,9 +11,9 @@ interface Props {
   charge: RefObject<Charge>;
   scroll: MotionValue<number>;
   readout: RefObject<HTMLElement | null>;
-  /** Telefon: fracția din înălțimea hero-ului unde se termină textul și începe câmpul. */
+  /** Phone: fraction of the hero height where the text ends and the field begins. */
   fieldTop: RefObject<number>;
-  /** false când hero-ul e în afara viewport-ului sau tab-ul e ascuns. */
+  /** false when the hero is outside the viewport or the tab is hidden. */
   active: boolean;
   reduced: boolean;
   onReady: () => void;
@@ -30,7 +30,7 @@ export default function HeroCanvas({ charge, scroll, readout, fieldTop, active, 
   }
   const [tier, setTier] = useState<ActiveTier>(initial.current);
 
-  // Adaptiv: onDecline coboară un tier, onIncline urcă, fără să depășească tier-ul inițial.
+  // Adaptive: onDecline drops a tier, onIncline climbs back, never above the initial tier.
   const shift = useCallback((dir: 1 | -1) => {
     setTier((cur) => {
       const i = TIER_ORDER.indexOf(cur) + dir;

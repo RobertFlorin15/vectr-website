@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { FIELD } from '../../lib/field.constants';
 
-/** O singură săgeată: fus (cilindru, y 0→1) + vârf (con, y 0→1), cu atributul aPart. */
+/** A single arrow: shaft (cylinder, y 0→1) + head (cone, y 0→1), with the aPart attribute. */
 export function createArrowGeometry(): THREE.BufferGeometry {
   const shaft = new THREE.CylinderGeometry(FIELD.shaftRadius, FIELD.shaftRadius, 1, 6, 1, true);
   shaft.translate(0, 0.5, 0);

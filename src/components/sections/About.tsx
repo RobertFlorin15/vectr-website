@@ -9,7 +9,7 @@ import VectorMask from '../ui/VectorMask';
 const INOUT: [number, number, number, number] = [...ease.inOut];
 const SOFT: [number, number, number, number] = [...ease.soft];
 
-/** Despre: panou inset, portret mascat în vector-cut, cu shutter-ul unic al paginii (SPEC §7.3). */
+/** About: inset panel, vector-cut masked portrait, with the single shutter reveal of the page (SPEC §7.3). */
 export default function About() {
   const reduce = useReducedMotion();
   const photo = useRef<HTMLDivElement>(null);
@@ -39,7 +39,7 @@ export default function About() {
           </Reveal>
         </div>
 
-        {/* Masca fixă pe exterior, shutter-ul pe interior (wrapper dublu). */}
+        {/* Fixed mask on the outside, shutter on the inside (double wrapper). */}
         <div
           ref={photo}
           className="relative mx-auto mt-12 w-full md:col-start-1 md:row-start-2 md:mx-0 md:mt-16 md:w-[min(38vw,100%)] md:self-start"
@@ -70,7 +70,7 @@ export default function About() {
                     e.currentTarget.currentTime = loopFrom;
                   }}
                   onTimeUpdate={(e) => {
-                    // Buclă pe un segment scurt, fără cartonul de titlu din clipul original.
+                    // Loop a short segment, skipping the title card of the original clip.
                     if (e.currentTarget.currentTime > loopTo) e.currentTarget.currentTime = loopFrom;
                   }}
                   aria-label={about.video.alt}

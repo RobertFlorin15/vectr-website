@@ -1,84 +1,86 @@
 # VECTR
 
-Site-ul echipei universitare de robotică VECTR. Pagina are o singură acțiune: aplicarea pentru recrutare.
+The website for the VECTR university robotics team. The page is built around a single primary action: applying for recruitment.
 
-Ideea de design: numele înseamnă vector (magnitudine și direcție), iar semnul echipei este un evantai de vectori dintr-o singură origine. Săgeata din coada lui „r” și acest semn conduc tot site-ul: butoanele, măștile fotografiilor, bulinele din liste și semnul din footer au toate același vârf de 90°. În Hero, semnul se formează dintr-un câmp vectorial 3D la care vizitatorul participă cu cursorul sau cu degetul.
+Design concept: the name stands for vector (magnitude and direction), and the team mark is a fan of vectors radiating from a single origin. The arrow in the tail of the "r" and this mark guide the entire site: buttons, photo masks, list bullets, and the footer emblem all share the same 90° arrowhead. In the Hero section, the mark emerges from a 3D vector field that the visitor interacts with using their cursor or touch.
 
 ## Stack
 
 - Vite, React 19, TypeScript
-- Tailwind CSS v4 (configurare în CSS, prin `@theme`)
-- Three.js prin `@react-three/fiber` și `@react-three/drei`
-- `motion` (Framer Motion) pentru animații
-- Fonturi Fontsource: Albert Sans și JetBrains Mono
+- Tailwind CSS v4 (configured directly in CSS via `@theme`)
+- Three.js via `@react-three/fiber` and `@react-three/drei`
+- `motion` (Framer Motion) for animations
+- Fontsource fonts: Albert Sans and JetBrains Mono
 
-## Pornire
+## Getting Started
 
-Cerințe: Node.js 20 sau mai nou.
+Requirements: Node.js 20 or newer.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Alte comenzi:
+Other commands:
 
 ```bash
-npm run build     # verificare de tipuri și build de producție în dist/
-npm run preview   # servește build-ul local, pe portul 4173
+npm run build     # type checking and production build in dist/
+npm run preview   # serve the production build locally on port 4173
 ```
 
-## Structura
+## Structure
 
 ```
 src/
-  App.tsx                  secțiunile, în ordinea paginii
-  content/site.ts          tot textul, imaginile și creditele
-  styles/globals.css       token-uri (culori, trepte tipografice), butonul vector-cut
+  App.tsx                  page sections in display order
+  content/site.ts          all copy, image references, and credits
+  styles/globals.css       design tokens (colors, type scale), vector-cut button
   lib/
-    logo.ts                razele semnului (singura sursă pentru SVG și pentru câmpul 3D)
-    field.constants.ts     constantele câmpului, injectate și în GLSL
-    field.ts               același câmp, calculat pe CPU pentru afișaj
-    vectorClip.ts          clip-path-ul cu vârf de 90°
-    tier.ts                nivelurile de calitate ale câmpului (desktop, telefon)
+    logo.ts                rays of the mark (single source of truth for SVG and 3D field)
+    field.constants.ts     field constants, also injected into GLSL
+    field.ts               same field evaluated on CPU for readouts
+    vectorClip.ts          clip-path with 90° arrowhead
+    tier.ts                field quality tiers (desktop, mobile)
   components/
-    canvas/                câmpul vectorial: geometrie, rețea, shadere, scena
-    sections/              Hero, Despre, Divizii, bandă, Proiecte, Contact, Footer
+    canvas/                vector field: geometry, grid, shaders, scene
+    sections/              Hero, About, Divisions, VectorBand, Projects, Join, Footer
     ui/                    Wordmark, BurstMark, VectorButton, VectorMask, Nav, Reveal
-  hooks/                   pointer, vizibilitate, mișcare redusă
+  hooks/                   pointer, visibility, reduced motion
 public/
-  brand/                   wordmark vectorizat, favicon
-  images/                  imaginile găsite, clipul și credits.json
+  brand/                   vectorized wordmark, favicon
+  images/                  curated images, video clip, and credits.json
 scripts/
-  trace-wordmark.mjs       vectorizează logos/logo_text.png cu potrace
-  measure-mark.mjs         script folosit la măsurarea razelor semnului
-SPEC.md                    specificația de design și arhitectură
+  trace-wordmark.mjs       vectorizes logos/logo_text.png using potrace
+  measure-mark.mjs         script used to measure the rays of the mark
+SPEC.md                    design and architecture specification
 ```
 
-## Câmpul vectorial din Hero
+## Hero Vector Field
 
-- Un singur `InstancedBufferGeometry`, deci un draw call pentru toate săgețile. Câmpul se calculează în vertex shader; per cadru se actualizează doar uniformele.
-- Formulele sunt definite o singură dată în `src/lib/field.constants.ts` și folosite atât în GLSL, cât și în `src/lib/field.ts`, ca afișajul `<output>` să arate exact ce se vede.
-- Scena se oprește când Hero-ul iese din ecran sau tab-ul e ascuns, iar calitatea se reduce automat dacă framerate-ul scade.
-- Three.js e încărcat lazy, într-un chunk separat. Dacă WebGL lipsește sau contextul se pierde, apare semnul static în SVG.
-- Pe telefon (sub 768 px) câmpul are o variantă separată: rețea mai deasă cu săgeți mai mici, emblemă mai discretă, sarcină mai puternică.
-- Cu `prefers-reduced-motion`, curgerea e înghețată și scena se randează doar la interacțiune.
+- A single `InstancedBufferGeometry` — a single draw call for all arrows. The field is computed in the vertex shader; only uniforms are updated per frame.
+- Formulas are defined once in `src/lib/field.constants.ts` and shared between GLSL and `src/lib/field.ts`, ensuring the `<output>` readout reflects exactly what is rendered.
+- The scene pauses when the Hero scrolls out of view or the tab is hidden, and quality automatically scales down if the framerate drops.
+- Three.js is loaded lazily in a separate chunk. If WebGL is unavailable or context is lost, a static SVG mark is shown as a fallback.
+- On mobile devices (under 768px), the field uses a separate configuration: a denser grid with smaller arrows, a more subtle emblem, and stronger charge.
+- When `prefers-reduced-motion` is enabled, flow animation is frozen and the scene only re-renders on direct user interaction.
 
-## Ce trebuie completat înainte de lansare
+## What Needs to Be Completed Before Launch
 
-- Câmpurile marcate `[DE COMPLETAT]` din `src/content/site.ts`: universitatea, sala atelierului, program, emailul și rețelele sociale.
-- Textele și datele marcate `sample: true` (descrierile și specificațiile proiectelor, faptele diviziilor) sunt mostre plauzibile, de confirmat de echipă.
-- Fotografiile echipei: sloturile marcate `TODO-FOTO` din `site.ts`. Imaginile de acum sunt găsite în colecții deschise și nu înfățișează roboții VECTR.
-- Formularul de aplicare nu are backend: trimiterea deschide `mailto:` către `CONTACT_EMAIL` (gol deocamdată). Se poate conecta la Formspree sau la Google Forms, în `src/components/sections/Join.tsx`.
+- Fields marked `[DE COMPLETAT]` in `src/content/site.ts`: workshop room/building, schedule, contact email, and social media links.
+- Text and figures marked `sample: true` (project descriptions and specifications, division facts/stats) are plausible placeholder data to be confirmed by the team.
+- Team photography: slots marked `TODO-FOTO` in `site.ts`. Current images are temporary placeholders sourced from open collections until the site is finished, and do not depict VECTR robots.
+- The application form does not currently have a backend: submitting triggers a `mailto:` link to `CONTACT_EMAIL` (currently blank). It can be hooked up to Formspree, Google Forms, or a custom API in `src/components/sections/Join.tsx`.
 
-## Imagini și licențe
+## Images and Licenses
 
-Imaginile și clipul din `public/images` provin din Wikimedia Commons și Flickr, sub licențe CC BY, CC BY-SA, CC0 sau domeniu public. Creditele sunt în `public/images/credits.json` și în footerul site-ului. Nu le scoate fără să scoți și imaginea corespunzătoare.
+> **Note:** The usage of the current images and media is temporary until the site is finished and they are replaced with official team and robot photography.
+
+The images and video clip in `public/images` are sourced from Wikimedia Commons and Flickr under CC BY, CC BY-SA, CC0, or public domain licenses. Full attribution credits are listed in `public/images/credits.json` and in the website footer. Please do not remove any credit without removing the corresponding image asset.
 
 ## Brand
 
-Wordmark-ul și semnul sunt în `logos/`. Site-ul nu lipește PNG-uri: wordmark-ul e vectorizat în `public/brand/vectr-wordmark.svg`, iar semnul e reconstruit parametric din `src/lib/logo.ts`.
+The wordmark and mark assets are located in `logos/`. The site does not embed raw PNGs: the wordmark is vectorized in `src/brand/vectr-wordmark.svg`, and the mark is parametrically reconstructed from `src/lib/logo.ts`.
 
-## Licență
+## License
 
-De ales de echipă. Codul și materialele de brand VECTR nu au încă o licență.
+To be determined by the team. The VECTR code and brand assets do not have a license assigned yet.

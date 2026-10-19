@@ -1,11 +1,11 @@
 /**
- * Tot textul site-ului (SPEC §3).
- * `sample: true` = mostră plauzibilă, de confirmat de echipă înainte de lansare.
- * `[DE COMPLETAT: …]` = informație lipsă.
+ * All site copy (SPEC §3). The visible copy is Romanian by design.
+ * `sample: true` = plausible placeholder, to be confirmed by the team before launch.
+ * `[DE COMPLETAT: …]` = missing information (to be filled in).
  */
 
-export const UNIVERSITY = '[DE COMPLETAT: universitatea]';
-/** Adresa care primește aplicațiile (mailto:). [DE COMPLETAT] */
+export const UNIVERSITY = 'FIIR – POLITEHNICA București';
+/** Address that receives applications (mailto:). [DE COMPLETAT] */
 export const CONTACT_EMAIL = '';
 
 export const nav = {
@@ -41,7 +41,7 @@ export const about = {
     },
   ],
   cta: { label: 'Vezi diviziile', href: '#divizii' },
-  // TODO-FOTO atelier: înlocuiește cu fotografia atelierului VECTR.
+  // TODO-FOTO workshop: replace with a photo of the VECTR workshop.
   video: { src: '/images/magnet.webm', poster: '/images/filings.jpg', alt: 'Pilitură de fier aliniată pe liniile câmpului unui magnet', loopFrom: 51, loopTo: 74.5 },
 } as const;
 
@@ -53,7 +53,7 @@ export const divisions = {
       angle: 0,
       name: 'Software și autonomie',
       fact: 'Percepție, localizare și planificare de traiectorie în ROS 2, cu C++ și Python. Orice algoritm trece prin simulare înainte de primul metru pe pistă.',
-      // TODO-FOTO software: înlocuiește cu fotografia diviziei.
+      // TODO-FOTO software: replace with a photo of the division.
       image: { src: '/images/tortoise.jpg', alt: 'Broasca țestoasă cibernetică a lui William Grey Walter, unul dintre primii roboți autonomi' },
       sample: true,
     },
@@ -62,7 +62,7 @@ export const divisions = {
       angle: 120,
       name: 'Mecanică',
       fact: 'Șasiuri, transmisii și brațe proiectate în CAD, verificate prin analiză cu elemente finite, apoi printate 3D, frezate și asamblate în atelier.',
-      // TODO-FOTO mecanica: înlocuiește cu fotografia diviziei.
+      // TODO-FOTO mechanics: replace with a photo of the division.
       image: { src: '/images/mechanism.webp', alt: 'Fragmentul A al mecanismului din Antikythera, un angrenaj antic de bronz' },
       sample: true,
     },
@@ -71,7 +71,7 @@ export const divisions = {
       angle: 240,
       name: 'Electronică',
       fact: 'Plăci proiectate în KiCad, distribuție de putere, drivere de motoare și senzori integrați pe microcontrolere STM32 și ESP32.',
-      // TODO-FOTO electronica: înlocuiește cu fotografia diviziei.
+      // TODO-FOTO electronics: replace with a photo of the division.
       image: { src: '/images/pcb.jpg', alt: 'Placă de circuit imprimat cu componente montate' },
       sample: true,
     },
@@ -96,7 +96,7 @@ export const projects = {
         ['Senzori', 'LiDAR 2D, IMU, stereo'],
         ['Status', 'în competiție'],
       ],
-      // TODO-FOTO robot: înlocuiește cu fotografia lui Orbita.
+      // TODO-FOTO robot: replace with a photo of Orbita.
       image: { src: '/images/rover.jpg', alt: 'Rover cu patru roți și catarg cu camere pe un teren pietros' },
       sample: true,
     },
@@ -112,7 +112,7 @@ export const projects = {
         ['Controller', 'STM32H7'],
         ['Status', 'prototip 2'],
       ],
-      // TODO-FOTO robot: înlocuiește cu fotografia lui Manus.
+      // TODO-FOTO robot: replace with a photo of Manus.
       image: { src: '/images/arm.jpg', alt: 'Braț robotic industrial într-o hală de expoziție' },
       sample: true,
     },
@@ -128,7 +128,7 @@ export const projects = {
         ['Senzori', '16× IR'],
         ['Status', 'campion local'],
       ],
-      // TODO-FOTO robot: înlocuiește cu fotografia lui Lumen.
+      // TODO-FOTO robot: replace with a photo of Lumen.
       image: { src: '/images/linefollower.jpg', alt: 'Robot mic albastru care urmărește o linie neagră pe o foaie albă' },
       sample: true,
     },
@@ -144,7 +144,7 @@ export const projects = {
         ['Navigație', 'ROS 2 Nav2'],
         ['Status', 'în dezvoltare'],
       ],
-      // TODO-FOTO robot: înlocuiește cu fotografia lui Axis.
+      // TODO-FOTO robot: replace with a photo of Axis.
       image: { src: '/images/mecanum.jpg', alt: 'Robot cu roți mecanum și un braț montat deasupra' },
       sample: true,
     },
@@ -194,7 +194,7 @@ export const footer = {
   cta: { label: 'Alătură-te', href: '#contact' },
 } as const;
 
-/** Credite pentru imaginile găsite (generate din public/images/credits.json). */
+/** Credits for the found images (generated from public/images/credits.json). */
 export const credits = [
   { title: 'A field of magnetised iron filings', by: 'The Sandpainter', licence: 'CC BY-SA 3.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0/', url: 'https://commons.wikimedia.org/w/index.php?curid=16264231', via: 'Wikimedia Commons' },
   { title: 'Magnet bar', by: 'Zátonyi Sándor, (ifj.) Fizped', licence: 'CC BY 3.0', licenceUrl: 'https://creativecommons.org/licenses/by/3.0', url: 'https://commons.wikimedia.org/wiki/File:Magnet_bar.ogv', via: 'Wikimedia Commons' },

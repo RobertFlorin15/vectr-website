@@ -1,10 +1,10 @@
-import wordmarkSvg from '../../../public/brand/vectr-wordmark.svg?raw';
+import wordmarkSvg from '../../brand/vectr-wordmark.svg?raw';
 
 const viewBox = /viewBox="([^"]+)"/.exec(wordmarkSvg)?.[1] ?? '0 0 480 136';
 const pathD = /<path[^>]* d="([^"]+)"/.exec(wordmarkSvg)?.[1] ?? '';
 const [, , vw, vh] = viewBox.split(' ').map(Number);
 
-/** Wordmark VECTR vectorizat (potrace), moștenește `color`. Înălțimea e dată prin `height`. */
+/** Vectorized VECTR wordmark (potrace); inherits `color`. Height is set through `height`. */
 export default function Wordmark({ height = 22, className }: { height?: number; className?: string }) {
   return (
     <svg

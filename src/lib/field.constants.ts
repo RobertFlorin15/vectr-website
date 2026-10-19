@@ -1,16 +1,16 @@
 import { LOGO_RAYS } from './logo';
 
-/** Constantele câmpului vectorial (SPEC §5.3). Sursă unică pentru GLSL și pentru calculul pe CPU. */
+/** Vector field constants (SPEC §5.3). Single source for GLSL and for the CPU evaluation. */
 const deg = (d: number) => (d * Math.PI) / 180;
 
 export const FIELD = {
-  // (a) sursa-emblemă
+  // (a) the emblem source
   sigmaTheta: deg(6),
-  // Anti-aliasing: lățimea unei raze nu scade sub ~0.6 pași de rețea (altfel razele înguste sunt eșantionate rar lângă O).
+  // Anti-aliasing: the width of a ray never drops below ~0.6 lattice steps (otherwise narrow rays are sampled sparsely near O).
   rayHalfWidth: 0.24,
   sigmaThetaMax: 0.6,
-  sigmaDecayBlend: 0.3, // lățimea mediei netede a lui L* (rad)
-  // Amplitudinea unei raze: raza scurtă rămâne vizibilă, lungimea ei se citește din decădere (L*).
+  sigmaDecayBlend: 0.3, // width of the smooth average of L* (rad)
+  // Amplitude of a ray: short rays stay visible, their length reads from the decay (L*).
   rayAmpBase: 0.6,
   rayAmpL: 0.4,
   a0: 0.18,
@@ -33,7 +33,7 @@ export const FIELD = {
   ptrKA: 1.1,
   ptrKS: 0.35,
 
-  // (d) săgeata
+  // (d) the arrow
   Lmin: 0.05,
   Lmax: 0.62,
   F0: 0.55,
@@ -48,7 +48,7 @@ const f = (n: number) => (Number.isInteger(n) ? n.toFixed(1) : String(n));
 const arr = (name: string, v: readonly number[]) =>
   `const float ${name}[${v.length}] = float[${v.length}](${v.map(f).join(', ')});`;
 
-/** Constantele ca #define / const GLSL, injectate în shader prin template string. */
+/** The constants as GLSL #define / const, injected into the shader through a template string. */
 export const FIELD_GLSL = /* glsl */ `
 #define N_RAYS ${FIELD.rayL.length}
 #define SIG_THETA ${f(FIELD.sigmaTheta)}

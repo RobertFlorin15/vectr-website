@@ -3,15 +3,15 @@ import { useEffect, useRef, type RefObject } from 'react';
 import { ease } from '../lib/tokens';
 
 /**
- * Sarcina vizitatorului: poziția pointerului în NDC, prezența și polaritatea.
- * Obiect mutabil, citit în useFrame, deci fără re-render React (SPEC §5.5–5.6).
+ * The visitor charge: pointer position in NDC, presence and polarity.
+ * A mutable object read in useFrame, so no React re-render (SPEC §5.5–5.6).
  */
 export interface Charge {
   ndcX: number;
   ndcY: number;
   present: boolean;
   everPresent: boolean;
-  polarity: number; // +1 atracție, −1 respingere
+  polarity: number; // +1 attraction, −1 repulsion
   onChange: (() => void) | null;
 }
 
@@ -67,7 +67,7 @@ export function usePointerCharge(target: RefObject<HTMLElement | null>) {
       t instanceof Element && !!t.closest('a, button, input, select, textarea');
 
     const onMove = (e: PointerEvent) => {
-      // Pe touch, tragerea orizontală mută sarcina (scroll-ul vertical rămâne liber: touch-action pan-y).
+      // On touch, a horizontal drag moves the charge (vertical scroll stays free: touch-action pan-y).
       place(e);
     };
     const onLeave = (e: PointerEvent) => {

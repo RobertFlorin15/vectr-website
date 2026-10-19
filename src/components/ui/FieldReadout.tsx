@@ -1,8 +1,8 @@
 import type { RefObject } from 'react';
 
 /**
- * Afișajul câmpului: vectorul exact de sub sarcină. Textul se scrie prin ref (15 Hz), nu prin state.
- * Componentele au semn fix și 2 zecimale, deci cifrele tabulare nu „dansează”.
+ * The field readout: the exact vector under the charge. Text is written through a ref (15 Hz), not state.
+ * Components have a fixed sign and 2 decimals, so the tabular figures do not "dance".
  */
 export default function FieldReadout({ valueRef }: { valueRef: RefObject<HTMLElement | null> }) {
   return (

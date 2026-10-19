@@ -9,7 +9,7 @@ const SOFT: [number, number, number, number] = [...ease.soft];
 
 type Item = (typeof projects.items)[number];
 
-/** Culorile benzilor, în ordine: surface → surface2 → graphite → muted (SPEC §4.1, §7.6). */
+/** Band colours, in order: surface → surface2 → graphite → muted (SPEC §4.1, §7.6). */
 const BANDS = [
   { bg: 'bg-surface', fg: 'text-ink', sub: 'text-muted', zebra: 'bg-void/25', tab: 'ink' },
   { bg: 'bg-surface2', fg: 'text-ink', sub: 'text-muted', zebra: 'bg-void/25', tab: 'ink' },
@@ -30,14 +30,14 @@ function Folder({ p, i }: { p: Item; i: number }) {
       className={`relative mt-16 flex min-h-svh flex-col px-(--margin) pb-16 md:sticky md:mt-0 md:min-h-[calc(80svh+64px)] md:top-[var(--top)] md:pb-24 ${b.bg} ${b.fg}`}
       style={{ ['--top' as string]: `${i * 64}px` }}
     >
-      {/* Tab-ul se ridică din colțul stânga-sus al benzii */}
+      {/* The tab rises from the top-left corner of the band */}
       <div className="absolute bottom-full left-(--margin)">
         <VectorButton href={`#proiect-${p.id}`} tone={b.tab} size="sm" className="[&_.vbtn__body]:min-w-[180px] md:[&_.vbtn__body]:min-w-[220px] [&_.vbtn__body]:text-[1.25rem] [&_.vbtn__body]:font-semibold md:[&_.vbtn__body]:text-lead">
           {p.name}
         </VectorButton>
       </div>
 
-      {/* Fâșia vizibilă de 64px: categoria, aliniată dreapta */}
+      {/* The visible 64px strip: the category, right-aligned */}
       <div className="flex h-16 items-center justify-end">
         <p className={`text-body ${b.sub}`}>{p.category}</p>
       </div>
@@ -90,7 +90,7 @@ function Folder({ p, i }: { p: Item; i: number }) {
   );
 }
 
-/** Proiecte: dosare suprapuse, cu taburi vector-cut (SPEC §7.6). */
+/** Projects: stacked folders with vector-cut tabs (SPEC §7.6). */
 export default function Projects() {
   return (
     <section id="proiecte" data-ink="light" className="bg-ground pt-[var(--section)]">

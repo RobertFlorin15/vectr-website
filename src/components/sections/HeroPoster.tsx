@@ -1,8 +1,8 @@
 import BurstMark from '../ui/BurstMark';
 
 /**
- * Fallback static (SPEC §5.9): semnul VECTR în SVG, la aceeași poziție și scară ca originea câmpului.
- * Se vede înainte de încărcarea canvas-ului și fără WebGL.
+ * Static fallback (SPEC §5.9): the VECTR mark as SVG, at the same position and scale as the field origin.
+ * Shown before the canvas loads and when WebGL is unavailable.
  */
 export default function HeroPoster() {
   return (

@@ -3,7 +3,7 @@ import { ease } from '../../lib/tokens';
 
 const EASE_OUT: [number, number, number, number] = [...ease.out];
 
-/** Reveal mascat pe rânduri: fiecare rând urcă din spatele propriei linii de bază (SPEC §7.2). */
+/** Line-masked reveal: each line rises from behind its own baseline (SPEC §7.2). */
 export default function MaskedLines({ lines, delay = 0, stagger = 0.11 }: { lines: string[]; delay?: number; stagger?: number }) {
   const reduce = useReducedMotion();
   return (

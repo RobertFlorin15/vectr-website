@@ -15,8 +15,8 @@ interface Props {
 }
 
 /**
- * Intrare la scroll (SPEC §8). Conținutul nu rămâne niciodată ascuns:
- * se afișează forțat după 1.5s dacă IntersectionObserver nu a declanșat.
+ * Scroll entrance (SPEC §8). Content is never left hidden:
+ * it is forced visible after 1.5s if IntersectionObserver has not fired.
  */
 export default function Reveal({ as = 'div', delay = 0, y = 24, className, children }: Props) {
   const ref = useRef<HTMLElement>(null);

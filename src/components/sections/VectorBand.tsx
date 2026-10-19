@@ -2,8 +2,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react';
 
 /**
- * Banda-vector dintre cele două jumătăți (SPEC §7.5). Crește în magnitudine la scroll.
- * Corpul se scalează pe x, vârful e un element separat translatat, deci nu se deformează.
+ * The vector band between the two halves (SPEC §7.5). It grows in magnitude on scroll.
+ * The body scales on x; the tip is a separate translated element, so it never deforms.
  */
 export default function VectorBand() {
   const ref = useRef<HTMLDivElement>(null);

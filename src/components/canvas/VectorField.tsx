@@ -26,8 +26,8 @@ const CAMERA_Z = 14;
 const READOUT_INTERVAL = 1 / 15;
 const EASE_OUT: [number, number, number, number] = [...ease.out];
 
-/** Telefon: emblema mai discretă, curgerea și sarcina mai puternice, domeniu de eșantionare mai larg. */
-/** Telefon: curgerea ambientală rulează mai repede (desktop: 1). */
+/** Phone: subtler emblem, stronger flow and charge, wider sampling domain. */
+/** Phone: the ambient flow runs faster (desktop: 1). */
 const PHONE_TIME_SCALE = 1.4;
 const PHONE_GAINS: FieldGains = { scale: 2, src: 0.75, flow: 3, ptr: 1.8 };
 const DESKTOP: FieldGains = { scale: 1, src: 1, flow: 1, ptr: 1 };
@@ -91,7 +91,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
   useEffect(() => () => arrow.dispose(), [arrow]);
   useEffect(() => () => material.dispose(), [material]);
 
-  // Mișcare redusă: randăm doar când se schimbă sarcina.
+  // Reduced motion: render only when the charge changes.
   useEffect(() => {
     const c = charge.current;
     if (!reduced) return;
@@ -101,7 +101,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
     };
   }, [reduced, charge, invalidate]);
 
-  // Obiecte temporare, create o dată, în afara buclei.
+  // Scratch objects, created once, outside the loop.
   const scratch = useMemo(
     () => ({
       target: new THREE.Vector3(),
@@ -130,7 +130,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
         uniforms.uIntro.value = 1;
       } else {
         scratch.introAnim = animate(0, 1, {
-          duration: mobile ? 1 : 1.4,
+          duration: mobile ? 0.6 : 1.0,
           ease: EASE_OUT,
           onUpdate: (v) => {
             uniforms.uIntro.value = v;
@@ -145,7 +145,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
       uniforms.uTime.value = scratch.time;
     }
 
-    // Dolly + luminozitate globală la scroll: doar uniforme, fără re-render.
+    // Dolly + global brightness on scroll: uniforms only, no re-render.
     const s = scroll.get();
     const dist = reduced ? CAMERA_Z : CAMERA_Z + 2 * s;
     cam.position.z = dist;
@@ -158,7 +158,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
     uniforms.uPtrGain.value = gains.ptr;
     uniforms.uArrowScale.value = mobile ? 0.7 : 1;
 
-    // Originea O: (78%, 55%) pe desktop; pe telefon centrul zonei de sub text. Camera off-axis o ancorează acolo.
+    // Origin O: (78%, 55%) on desktop; on phones the centre of the area below the text. The off-axis camera anchors it there.
     const top = fieldTop.current;
     const originX = mobile ? 0.5 : 0.78;
     const originY = mobile ? 1 - (1 - top) / 2 : 0.55;
@@ -173,7 +173,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
     const vh = 2 * Math.tan((cam.fov * Math.PI) / 360) * dist;
     const vw = vh * (size.width / size.height);
 
-    // Sarcina: pointerul proiectat pe z = 0, în coordonate locale ale rețelei.
+    // Charge: the pointer projected onto z = 0, in lattice-local coordinates.
     scratch.target.set(((c.ndcX + 1) / 2 - originX) * vw, (originY - (1 - c.ndcY) / 2) * vh, 0);
     if (reduced) {
       uniforms.uPointer.value.copy(scratch.target);
@@ -185,7 +185,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
     uniforms.uPtrAmp.value = scratch.ptrAmp.v;
     uniforms.uPolarity.value = c.polarity;
 
-    // Afișaj la ~15 Hz, scris direct în DOM.
+    // Readout at ~15 Hz, written straight to the DOM.
     scratch.readoutAcc += dt;
     const el = readout.current;
     if (el && c.everPresent && (reduced || scratch.readoutAcc >= READOUT_INTERVAL)) {
@@ -194,7 +194,7 @@ export default function VectorField({ tier, charge, scroll, readout, fieldTop, r
       const ptr = scratch.ptr;
       ptr.x = p.x;
       ptr.y = p.y;
-      ptr.amp = 0; // afișajul eșantionează câmpul ambiant de sub sarcină
+      ptr.amp = 0; // the readout samples the ambient field under the charge
       evaluateField(scratch.field, p.x, p.y, 0, scratch.time, ptr, gains);
       const [fx, fy, fz] = scratch.field;
       const n = Math.hypot(fx, fy, fz);

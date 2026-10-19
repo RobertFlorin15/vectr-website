@@ -9,12 +9,12 @@ import VectorButton from '../ui/VectorButton';
 const OUT: [number, number, number, number] = [...ease.out];
 const rad = (d: number) => (d * Math.PI) / 180;
 
-/** Semnul construit mare: se vede doar jumătatea superioară, cu originea pe linia de jos. Razele se desenează din origine (SPEC §7.8). */
+/** The mark built large: only the upper half is shown, with the origin on the bottom line. Rays are drawn out from the origin (SPEC §7.8). */
 function BuiltMark() {
   const ref = useRef<SVGSVGElement>(null);
   const reduce = useReducedMotion();
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  // Doar razele din semiplanul superior (și cele aproape orizontale): ele formează un evantai complet, fără ciot la linia de jos.
+  // Only the rays in the upper half-plane (and near-horizontal ones): they form a complete fan, with no stubs at the bottom line.
   const order = LOGO_RAYS.filter((r) => Math.sin(rad(r.theta)) >= -0.12).sort((a, b) => a.theta - b.theta);
   const go = inView || reduce;
 

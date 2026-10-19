@@ -7,7 +7,7 @@ import Join from './components/sections/Join';
 import Projects from './components/sections/Projects';
 import VectorBand from './components/sections/VectorBand';
 
-/** Ordinea secțiunilor din SPEC §0.5: Hero → Despre → Divizii → bandă → Proiecte → Contact → Footer. */
+/** Section order from SPEC §0.5: Hero → About → Divisions → band → Projects → Contact → Footer. */
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">

@@ -12,8 +12,9 @@ import Nav from '../ui/Nav';
 import VectorButton from '../ui/VectorButton';
 import HeroPoster from './HeroPoster';
 
-// Three.js nu stă în bundle-ul inițial: LCP = H1 (text), nu canvas-ul.
-const HeroCanvas = lazy(() => import('../canvas/HeroCanvas'));
+// Preload the Three.js chunk as soon as the script starts:
+const heroCanvasPromise = import('../canvas/HeroCanvas');
+const HeroCanvas = lazy(() => heroCanvasPromise);
 
 const EASE_OUT: [number, number, number, number] = [...ease.out];
 
@@ -22,7 +23,7 @@ export default function Hero() {
   const section = useRef<HTMLElement>(null);
   const readout = useRef<HTMLElement>(null);
   const textEnd = useRef<HTMLDivElement>(null);
-  /** Telefon: fracția din înălțimea hero-ului unde începe zona câmpului, sub text. */
+  /** Phone: fraction of the hero height where the field area begins, below the text. */
   const fieldTop = useRef(0.6);
   const inView = useInViewport(section);
   const visible = usePageVisible();
@@ -41,9 +42,7 @@ export default function Hero() {
       setFailed(true);
       return;
     }
-    // După primul paint: textul hero-ului nu așteaptă Three.js.
-    const id = window.setTimeout(() => setMountCanvas(true), 0);
-    return () => window.clearTimeout(id);
+    setMountCanvas(true);
   }, []);
 
   useEffect(() => {
@@ -85,7 +84,7 @@ export default function Hero() {
       className="relative isolate min-h-svh overflow-hidden bg-void text-ink md:h-svh md:min-h-[34rem]"
       style={{ touchAction: 'pan-y', userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }}
       onContextMenu={(e) => {
-        // Apăsarea lungă pe touch inversează sarcina; nu deschidem meniul contextual.
+        // A long press on touch inverts the charge; do not open the context menu.
         if (touch) e.preventDefault();
       }}
     >

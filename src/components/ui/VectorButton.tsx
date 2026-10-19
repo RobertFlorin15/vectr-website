@@ -9,7 +9,7 @@ interface Common {
 type AnchorProps = Common & { href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>;
 type ButtonProps = Common & { href?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>;
 
-/** Buton vector-cut: corp + vârf de 90° separat, care avansează 8px la hover (SPEC §4.3, §8). */
+/** Vector-cut button: body + separate 90° tip that advances 8px on hover (SPEC §4.3, §8). */
 export default function VectorButton(props: AnchorProps | ButtonProps) {
   const { tone = 'ink', size = 'md', children, className = '', ...rest } = props;
   const inner = (
